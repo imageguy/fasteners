@@ -18,7 +18,7 @@ The main programs are as follows:
 
 - stlpack.py : takes a list of fastener STL files and packs them into a single STL file for printing. The goal is to minimize the move times between fasteners. It also produces a list file with all names of all the files that were combined. Needs numpy and scipy.
 
-Exctept for stlpack.py, -h or --help will give the help message describing all the parameters.
+Except for stlpack.py, -h or --help will give the help message describing all the parameters.
 
 Shell script gen_head.sh calls batchbolt.py to generate all the fasteners of the same unit, type and head. For example:
 

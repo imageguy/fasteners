@@ -164,8 +164,8 @@ def _md_table(headers, rows):
 
 # ── per-directory index ───────────────────────────────────────────────────────
 
-def gen_dir_index(dirpath, base_url=''):
-    """Write index.md for one leaf directory of .stl files."""
+def gen_dir_index(dirpath, base_url='', use_raw=False):
+    """Write index.md (blob links) or index_raw.md (raw links) for one leaf directory."""
     dirpath = Path(dirpath)
     stl_files = [f for f in os.listdir(dirpath) if f.endswith('.stl')]
     if not stl_files:
@@ -193,13 +193,13 @@ def gen_dir_index(dirpath, base_url=''):
     cell    = {(p['pitch_str'], p['length_str']): (p['fname'], _file_label(p, is_nut))
                for p in parsed}
 
-    # Compute raw base URL for this directory
-    _, raw_base = _split_urls(base_url)
-    rel_dir = dirpath.relative_to(BLD_STL)   # e.g. mm/bolt/hex/M6
+    blob_base, raw_base = _split_urls(base_url)
+    stl_base = raw_base if use_raw else blob_base
+    rel_dir  = dirpath.relative_to(BLD_STL)   # e.g. mm/bolt/hex/M6
 
     def stl_url(fname):
-        if raw_base:
-            return f"{raw_base}/{rel_dir}/{fname}"
+        if stl_base:
+            return f"{stl_base}/{rel_dir}/{fname}"
         return fname    # relative fallback (local use only)
 
     headers = ['Length \\ Pitch'] + [_decode_pitch(p, am_metric) for p in pitches]
@@ -216,26 +216,31 @@ def gen_dir_index(dirpath, base_url=''):
                 row.append('—')
         rows.append(row)
 
+    index_name = 'index_raw.md' if use_raw else 'index.md'
     lines = [f'# {title}', ''] + _md_table(headers, rows) + ['']
-    out = dirpath / 'index.md'
+    out = dirpath / index_name
     out.write_text('\n'.join(lines), encoding='utf-8')
     print(f'  {out.relative_to(BLD_STL.parent)}')
 
 
 # ── master index ──────────────────────────────────────────────────────────────
 
-def gen_master_index(base_url=''):
+def gen_master_index(base_url='', use_raw=False):
     """
     Write bld/stl/index.md.
 
-    Uses GitHub blob URLs for index page links (so they render as Markdown
-    on GitHub) and raw URLs for any direct STL links.
+    Links to leaf pages point to index.md (blob mode) or index_raw.md (raw mode).
+    The master index itself is always written as index.md.
     The output is also suitable for pasting into a Thingiverse description.
     """
     blob_base, raw_base = _split_urls(base_url)
+    # Master index page links always use blob URLs so they render on GitHub.
+    # The leaf filename varies with use_raw.
+    page_base  = blob_base
+    index_name = 'index_raw.md' if use_raw else 'index.md'
 
     def page_url(rel):
-        return f"{blob_base}/{rel}" if blob_base else rel
+        return f"{page_base}/{rel}" if page_base else rel
 
     parts = ['# STL Download Index', '']
 
@@ -266,9 +271,9 @@ def gen_master_index(base_url=''):
                 size_disp = _decode_size(size)
                 row = [f'**{size_disp}**']
                 for head in heads:
-                    idx = BLD_STL / unit / btype / head / size / 'index.md'
+                    idx = BLD_STL / unit / btype / head / size / index_name
                     if idx.exists():
-                        rel = f"{unit}/{btype}/{head}/{size}/index.md"
+                        rel = f"{unit}/{btype}/{head}/{size}/{index_name}"
                         row.append(f'[{size_disp}]({page_url(rel)})')
                     else:
                         row.append('—')
@@ -290,17 +295,17 @@ def gen_master_index(base_url=''):
             headers = [_decode_size(s) for s in sizes]
             row = []
             for s in sizes:
-                idx = nut_dir / s / 'index.md'
+                idx = nut_dir / s / index_name
                 size_disp = _decode_size(s)
                 if idx.exists():
-                    rel = f"{unit}/nut/{s}/index.md"
+                    rel = f"{unit}/nut/{s}/{index_name}"
                     row.append(f'[{size_disp}]({page_url(rel)})')
                 else:
                     row.append(size_disp)
             parts += _md_table(headers, [row])
             parts.append('')
 
-    out = BLD_STL / 'index.md'
+    out = BLD_STL / index_name
     out.write_text('\n'.join(parts), encoding='utf-8')
     label = f'with base URL: {base_url}' if base_url else '(relative links)'
     print(f'Master index {label}: {out.relative_to(BLD_STL.parent)}')
@@ -325,6 +330,14 @@ def main():
         )
     )
     parser.add_argument(
+        '--raw', action='store_true',
+        help=(
+            'Generate index_raw.md files with raw.githubusercontent.com download\n'
+            'links (triggers direct file download). Default generates index.md\n'
+            'files with github.com/blob/ links (shows GitHub viewer/preview).'
+        )
+    )
+    parser.add_argument(
         '--master-only', action='store_true',
         help='Regenerate only the master index, skip per-directory pages.'
     )
@@ -334,9 +347,9 @@ def main():
         print(f'Walking {BLD_STL} ...')
         for root, dirs, files in os.walk(BLD_STL):
             if any(f.endswith('.stl') for f in files):
-                gen_dir_index(root, args.base_url)
+                gen_dir_index(root, args.base_url, use_raw=args.raw)
 
-    gen_master_index(base_url=args.base_url)
+    gen_master_index(base_url=args.base_url, use_raw=args.raw)
     print('Done.')
 
 
