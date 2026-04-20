@@ -1,4 +1,4 @@
-** Machine fasteners: STL library and generation code **
+**Machine fasteners: STL library and generation code**
 
 A large library of STL files describing metric and Imperial bolts, screws and nuts. There is also a Python package to generate custom fasteners.
 
