@@ -2,7 +2,14 @@
 
 # command line handling for bolt/screw generation
 # By Nenad Rijavec.
-# Distributed under MIT license.
+
+# This is free and unencumbered software released into the public domain.
+
+# Anyone is free to copy, modify, publish, use, compile, sell, or
+# distribute this software, either in source code form or as a compiled
+# binary, for any purpose, commercial or non-commercial, and by any
+# means.
+
 # First draft was done by ChatGPT 5. Current code has been heavily
 # modified and extended.
 
@@ -413,12 +420,15 @@ def main():
 		ll = length - shank_l
 		if type == 'srod' :
 			# srod has two thread segments
-			ll /= 2
-		#if ll < 2.5 * pitch + 2*pitch/fn + 0.1 :
-		if ll < w :
-			outstr = "Error: length too short for this pitch.\n"
-			outstr += "Minimum is " + str("{:.2f}".format(2*w+shank_l))
-			sys.exit(outstr)
+			if ll < 2*w :
+				outstr = "Error: length too short for this pitch.\n"
+				outstr += "Minimum is " + str("{:.2f}".format(2*w+shank_l))
+				sys.exit(outstr)
+		else :
+			if ll < w :
+				outstr = "Error: length too short for this pitch.\n"
+				outstr += "Minimum is " + str("{:.2f}".format(w+shank_l))
+				sys.exit(outstr)
 
 
 	print( fname )

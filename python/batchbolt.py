@@ -6,7 +6,12 @@
 # pitches for that dimension. All have the same head.
 
 # By Nenad Rijavec.
-# Distributed under MIT license.
+# This is free and unencumbered software released into the public domain.
+
+# Anyone is free to copy, modify, publish, use, compile, sell, or
+# distribute this software, either in source code form or as a compiled
+# binary, for any purpose, commercial or non-commercial, and by any
+# means.
 
 import argparse
 import sys

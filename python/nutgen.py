@@ -3,7 +3,13 @@
 # command line handling for nut generation
 # modified from boltgen
 # By Nenad Rijavec.
-# Distributed under MIT license.
+
+# This is free and unencumbered software released into the public domain.
+
+# Anyone is free to copy, modify, publish, use, compile, sell, or
+# distribute this software, either in source code form or as a compiled
+# binary, for any purpose, commercial or non-commercial, and by any
+# means.
 
 import argparse
 import sys
@@ -168,6 +174,9 @@ def main():
 		pitch = parse_number('pitch', args.pitch, 'mm')
 		if not am_metric :
 			pitch = 25.4 / pitch
+	    	# make sure pitch is not too coarse
+		if bld.diam/2 < pitch * math.sqrt(3) / 2 + 0.1 :
+			sys.exit(f'Error: pitch too coarse for diameter')
 	if args.diam_adj == None :
 		if bld.diam < 8 :
 			diam_adj = 0.40

@@ -3,7 +3,14 @@
 boltgen_gui — GUI for bolt/screw/nut STL generation.
 Calls generate_bolt and generate_nut directly.
 By Nenad Rijavec.
-Distributed under MIT license.
+
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
 The code itself was fully written by Claude Code (Sonnet 4.6.), following
 a series of prompts and inspection of boltgen.py, nutgen.py and the
 code in the underlying facet engine. There were no human changes to the
@@ -323,6 +330,8 @@ class BoltNutGUI:
         self.bolt_diam_cb.grid(row=r, column=1, sticky='w', padx=6, pady=3)
         self.bolt_diam_cb.bind('<<ComboboxSelected>>',
                                 lambda e: self._bolt_diam_changed())
+        self.bolt_diam_cb.bind('<FocusOut>', self._check_bolt_diam)
+        self.bolt_diam_cb.bind('<Return>',   self._check_bolt_diam)
         self.bolt_diam.trace_add('write', self._bolt_diam_changed)
         r += 1
 
@@ -330,7 +339,9 @@ class BoltNutGUI:
         self._bolt_len_lbl = tk.StringVar(value='Length (mm):')
         lbl(f, r, var=self._bolt_len_lbl)
         self.bolt_length = tk.StringVar()
-        ent(f, r, self.bolt_length)
+        _e = ent(f, r, self.bolt_length)
+        _e.bind('<FocusOut>', self._check_bolt_length)
+        _e.bind('<Return>',   self._check_bolt_length)
         self.bolt_length.trace_add('write', self._bolt_length_changed)
         r += 1
 
@@ -355,6 +366,8 @@ class BoltNutGUI:
         self.bolt_pitch_cb = ttk.Combobox(f, textvariable=self.bolt_pitch, width=20)
         self.bolt_pitch_cb.grid(row=r, column=1, sticky='w', padx=6, pady=3)
         self.bolt_pitch.trace_add('write', self._update_bolt_outfile)
+        self.bolt_pitch_cb.bind('<FocusOut>', self._check_bolt_pitch)
+        self.bolt_pitch_cb.bind('<Return>',   self._check_bolt_pitch)
         r += 1
 
         # Shank diameter (disabled for Screw)
@@ -369,13 +382,17 @@ class BoltNutGUI:
         lbl(f, r, var=self._bolt_shankl_lbl)
         self.bolt_shank_l = tk.StringVar()
         self.bolt_shank_l_entry = ent(f, r, self.bolt_shank_l)
+        self.bolt_shank_l_entry.bind('<FocusOut>', self._check_bolt_shank_l)
+        self.bolt_shank_l_entry.bind('<Return>',   self._check_bolt_shank_l)
         r += 1
 
         # Hex wrench / key size
         self._bolt_hex_lbl = tk.StringVar(value='Hex wrench/key size (mm):')
         lbl(f, r, var=self._bolt_hex_lbl)
         self.bolt_hex = tk.StringVar()
-        ent(f, r, self.bolt_hex)
+        _e = ent(f, r, self.bolt_hex)
+        _e.bind('<FocusOut>', self._check_bolt_hex)
+        _e.bind('<Return>',   self._check_bolt_hex)
         r += 1
 
         # hex_h (hex head height, in user units)
@@ -411,13 +428,18 @@ class BoltNutGUI:
 
         # h_adj (pan/flat/cap head height increase, always mm, non-negative)
         self.bolt_h_adj = tk.StringVar(value='0')
-        adj_row(f, r, 'Head height adj (mm):', self.bolt_h_adj,
-                'Increase the height of pan, flat, or cap head in mm.\nMust be >= 0.')
+        _e = adj_row(f, r, 'Head height adj (mm):', self.bolt_h_adj,
+                     'Increase the height of pan, flat, or cap head in mm.\nMust be >= 0.')
+        _e.bind('<FocusOut>', self._check_bolt_h_adj)
+        _e.bind('<Return>',   self._check_bolt_h_adj)
         r += 1
 
         # Output file (pre-filled, editable, browsable)
         lbl(f, r, 'Output file:')
         self.bolt_outfile = tk.StringVar()
+        self._bolt_outfile_locked = False   # True when user has edited the field
+        self._bolt_outfile_writing = False  # True while we are setting it programmatically
+        self.bolt_outfile.trace_add('write', self._bolt_outfile_edited)
         ttk.Entry(f, textvariable=self.bolt_outfile, width=40).grid(
             row=r, column=1, sticky='w', padx=6, pady=3)
         r += 1
@@ -462,6 +484,8 @@ class BoltNutGUI:
         self.nut_diam_cb.grid(row=r, column=1, sticky='w', padx=6, pady=3)
         self.nut_diam_cb.bind('<<ComboboxSelected>>',
                                lambda e: self._nut_diam_changed())
+        self.nut_diam_cb.bind('<FocusOut>', self._check_nut_diam)
+        self.nut_diam_cb.bind('<Return>',   self._check_nut_diam)
         self.nut_diam.trace_add('write', self._nut_diam_changed)
         r += 1
 
@@ -471,8 +495,11 @@ class BoltNutGUI:
         self._nut_len_lbl = tk.StringVar(value='Length, blank=default (mm):')
         lbl(f, r, var=self._nut_len_lbl)
         self.nut_length = tk.StringVar()
-        ent(f, r, self.nut_length)
+        _e = ent(f, r, self.nut_length)
+        _e.bind('<FocusOut>', self._check_nut_length)
+        _e.bind('<Return>',   self._check_nut_length)
         self.nut_length.trace_add('write', self._update_nut_outfile)
+        self.nut_length.trace_add('write', lambda *_: setattr(self, '_nut_length_validated', None))
         r += 1
 
         # Pitch / TPI
@@ -482,13 +509,17 @@ class BoltNutGUI:
         self.nut_pitch_cb = ttk.Combobox(f, textvariable=self.nut_pitch, width=20)
         self.nut_pitch_cb.grid(row=r, column=1, sticky='w', padx=6, pady=3)
         self.nut_pitch.trace_add('write', self._update_nut_outfile)
+        self.nut_pitch_cb.bind('<FocusOut>', self._check_nut_pitch)
+        self.nut_pitch_cb.bind('<Return>',   self._check_nut_pitch)
         r += 1
 
         # Hex wrench size
         self._nut_hex_lbl = tk.StringVar(value='Hex wrench size (mm):')
         lbl(f, r, var=self._nut_hex_lbl)
         self.nut_hex = tk.StringVar()
-        ent(f, r, self.nut_hex)
+        _e = ent(f, r, self.nut_hex)
+        _e.bind('<FocusOut>', self._check_nut_hex)
+        _e.bind('<Return>',   self._check_nut_hex)
         r += 1
 
         # fn
@@ -512,6 +543,9 @@ class BoltNutGUI:
         # Output file
         lbl(f, r, 'Output file:')
         self.nut_outfile = tk.StringVar()
+        self._nut_outfile_locked = False
+        self._nut_outfile_writing = False
+        self.nut_outfile.trace_add('write', self._nut_outfile_edited)
         ttk.Entry(f, textvariable=self.nut_outfile, width=40).grid(
             row=r, column=1, sticky='w', padx=6, pady=3)
         r += 1
@@ -532,6 +566,10 @@ class BoltNutGUI:
         self.nut_btn.grid(row=r, column=0, columnspan=2, pady=10)
 
         self._nut_units_changed()
+
+        # last-validated sentinels — prevent repeated errors when nothing changed
+        self._bolt_length_validated = None
+        self._nut_length_validated  = None
 
     # ---------------------------------------------------------------- callbacks
 
@@ -602,6 +640,318 @@ class BoltNutGUI:
         self._refresh_bolt_hex(bld)
         self._update_bolt_outfile()
 
+    # ---- helpers: parse bolt/nut context without raising ----
+
+    def _bolt_context(self):
+        """Return dict of parsed bolt fields, or None if anything critical fails."""
+        am_metric  = self.bolt_units.get() == 'mm'
+        diam_str   = self.bolt_diam.get().strip()
+        pitch_str  = self.bolt_pitch.get().strip()
+        length_str = self.bolt_length.get().strip()
+        if not (diam_str and pitch_str):
+            return None
+        try:
+            orig, bld = lookup_screw(am_metric, diam_str)
+            if bld is None:
+                return None
+            pitch_mm = display_to_mm_pitch(pitch_str, am_metric)
+        except Exception:
+            return None
+        length_orig = None
+        length_mm   = None
+        if length_str:
+            try:
+                length_orig = parse_length(length_str, am_metric)
+                length_mm   = length_orig if am_metric else length_orig * 25.4
+            except Exception:
+                pass
+        try:
+            fn = int(self.bolt_fn.get().strip())
+        except Exception:
+            fn = 50
+        hex_str = self.bolt_hex.get().strip()
+        try:
+            hex_val = parse_length(hex_str, am_metric) if hex_str else None
+            if hex_val is not None and not am_metric:
+                hex_val *= 25.4
+        except Exception:
+            hex_val = None
+        return dict(am_metric=am_metric, orig=orig, bld=bld,
+                    pitch_mm=pitch_mm,
+                    length_orig=length_orig, length_mm=length_mm,
+                    fn=fn, hex_val=hex_val,
+                    head=self.bolt_head.get().strip(),
+                    btype=self.bolt_type.get())
+
+    def _nut_context(self):
+        """Return dict of parsed nut fields, or None if anything critical fails."""
+        am_metric = self.nut_units.get() == 'mm'
+        diam_str  = self.nut_diam.get().strip()
+        pitch_str = self.nut_pitch.get().strip()
+        len_s     = self.nut_length.get().strip()
+        if not (diam_str and pitch_str):
+            return None
+        try:
+            orig, bld = lookup_nut(am_metric, diam_str)
+            if bld is None:
+                return None
+            pitch_mm = display_to_mm_pitch(pitch_str, am_metric)
+        except Exception:
+            return None
+        length_mm = None
+        if len_s:
+            try:
+                l = parse_length(len_s, am_metric)
+                length_mm = l if am_metric else l * 25.4
+            except Exception:
+                pass
+        try:
+            fn = int(self.nut_fn.get().strip())
+        except Exception:
+            fn = 50
+        try:
+            hex_val = parse_length(self.nut_hex.get().strip(), am_metric)
+            if not am_metric:
+                hex_val *= 25.4
+        except Exception:
+            hex_val = None
+        return dict(am_metric=am_metric, orig=orig, bld=bld,
+                    pitch_mm=pitch_mm, length_mm=length_mm,
+                    fn=fn, hex_val=hex_val)
+
+    # ---- early validation callbacks ----
+
+    def _check_bolt_diam(self, *_):
+        am_metric = self.bolt_units.get() == 'mm'
+        s = self.bolt_diam.get().strip()
+        if not s:
+            return
+        if am_metric:
+            if '#' in s:
+                messagebox.showerror('Error',
+                    f'"{s}" is an imperial size. Switch units to "in".')
+                return
+            if '/' in s:
+                messagebox.showerror('Error',
+                    f'Fractional sizes are imperial. Switch units to "in".')
+                return
+            try:
+                if float(s) <= 0:
+                    raise ValueError
+            except ValueError:
+                messagebox.showerror('Error', f'Invalid diameter: "{s}"')
+        else:
+            if s.startswith('#'):
+                if s not in diam_list(False, is_nut=False):
+                    messagebox.showerror('Error',
+                        f'Unknown {s}, can\'t interpolate.')
+            else:
+                try:
+                    parts = s.strip().split()
+                    if len(parts) == 1:
+                        v = float(Fraction(parts[0]))
+                    else:
+                        v = int(parts[0]) + float(Fraction(parts[1]))
+                    if v <= 0:
+                        raise ValueError
+                except Exception:
+                    messagebox.showerror('Error', f'Invalid diameter: "{s}"')
+
+    def _check_nut_diam(self, *_):
+        am_metric = self.nut_units.get() == 'mm'
+        s = self.nut_diam.get().strip()
+        if not s:
+            return
+        if am_metric:
+            if '#' in s:
+                messagebox.showerror('Error',
+                    f'"{s}" is an imperial size. Switch units to "in".')
+                return
+            if '/' in s:
+                messagebox.showerror('Error',
+                    f'Fractional sizes are imperial. Switch units to "in".')
+                return
+            try:
+                if float(s) <= 0:
+                    raise ValueError
+            except ValueError:
+                messagebox.showerror('Error', f'Invalid diameter: "{s}"')
+        else:
+            if s.startswith('#'):
+                if s not in diam_list(False, is_nut=True):
+                    messagebox.showerror('Error',
+                        f'Unknown {s}, can\'t interpolate.')
+            else:
+                try:
+                    parts = s.strip().split()
+                    if len(parts) == 1:
+                        v = float(Fraction(parts[0]))
+                    else:
+                        v = int(parts[0]) + float(Fraction(parts[1]))
+                    if v <= 0:
+                        raise ValueError
+                except Exception:
+                    messagebox.showerror('Error', f'Invalid diameter: "{s}"')
+
+    def _check_bolt_pitch(self, *_):
+        ctx = self._bolt_context()
+        if ctx is None:
+            return
+        bld, pitch_mm = ctx['bld'], ctx['pitch_mm']
+        threshold = pitch_mm * math.sqrt(3) / 2 + 0.1
+        if bld.diam / 2 < threshold:
+            messagebox.showerror('Error',
+                f'Pitch too coarse for diameter.\n'
+                f'diam={bld.diam:.4f} mm, pitch={pitch_mm:.4f} mm\n'
+                f'Need diam/2 ({bld.diam/2:.4f}) >= {threshold:.4f}')
+            return
+        # pitch change can also make the current length too short
+        self._check_bolt_length()
+
+    def _check_bolt_length(self, *_):
+        cur = self.bolt_length.get().strip()
+        if cur == self._bolt_length_validated:
+            return                          # same value already checked
+        self._bolt_length_validated = cur   # mark as checked (valid or error)
+        ctx = self._bolt_context()
+        if ctx is None:
+            return
+        bld, pitch_mm, length_mm, fn = (
+            ctx['bld'], ctx['pitch_mm'], ctx['length_mm'], ctx['fn'])
+        if length_mm is None:
+            return
+        w = 2.5 * pitch_mm + bld.diam / 16 + 2 * pitch_mm / fn + 0.1
+        if length_mm < w:
+            messagebox.showerror('Error',
+                f'Length too short for this pitch.\nMinimum is {w:.2f} mm')
+            return
+        # when shank_l is auto-computed (blank), check it won't go negative
+        if not self.bolt_shank_l.get().strip() and ctx['btype'] == 'bolt':
+            orig, length_orig, head = ctx['orig'], ctx['length_orig'], ctx['head']
+            if length_orig is not None:
+                thread_l = 0.5 * bolt_thread_length(
+                    length_orig, orig.diam, ctx['am_metric'])
+                shank_l_auto = (length_mm - thread_l if ctx['am_metric']
+                                else 25.4 * (length_orig - thread_l))
+                if head == 'none':
+                    shank_l_auto -= thread_l
+                if shank_l_auto <= 0:
+                    messagebox.showerror('Error',
+                        'Length too short: computed shank length would be negative.')
+                    return
+        # also validate shank_l if it's filled in
+        self._check_bolt_shank_l()
+
+    def _check_bolt_shank_l(self, *_):
+        ctx = self._bolt_context()
+        if ctx is None:
+            return
+        length_mm = ctx['length_mm']
+        shank_l_str = self.bolt_shank_l.get().strip()
+        if not (length_mm and shank_l_str):
+            return
+        try:
+            sl = parse_length(shank_l_str, ctx['am_metric'])
+            if not ctx['am_metric']:
+                sl *= 25.4
+        except Exception:
+            return
+        if sl <= 0 or sl >= length_mm:
+            messagebox.showerror('Error',
+                'Shank length must be > 0 and < total length.')
+            return
+        # check remaining thread-segment length (mirrors fixed boltgen.py logic)
+        bld, pitch_mm, fn = ctx['bld'], ctx['pitch_mm'], ctx['fn']
+        w = 2.5 * pitch_mm + bld.diam / 16 + 2 * pitch_mm / fn + 0.1
+        is_srod = ctx['head'] == 'none' and ctx['btype'] == 'bolt'
+        ll = length_mm - sl
+        if is_srod:
+            if ll < 2 * w:
+                messagebox.showerror('Error',
+                    f'Length too short for this pitch with this shank.\n'
+                    f'Minimum length is {2*w+sl:.2f} mm')
+        else:
+            if ll < w:
+                messagebox.showerror('Error',
+                    f'Length too short for this pitch with this shank.\n'
+                    f'Minimum length is {w+sl:.2f} mm')
+
+    def _check_nut_pitch(self, *_):
+        ctx = self._nut_context()
+        if ctx is None:
+            return
+        bld, pitch_mm = ctx['bld'], ctx['pitch_mm']
+        threshold = pitch_mm * math.sqrt(3) / 2 + 0.1
+        if bld.diam / 2 < threshold:
+            messagebox.showerror('Error',
+                f'Pitch too coarse for diameter.\n'
+                f'diam={bld.diam:.4f} mm, pitch={pitch_mm:.4f} mm\n'
+                f'Need diam/2 ({bld.diam/2:.4f}) >= {threshold:.4f}')
+            return
+        # pitch change can also make the current length too short
+        self._check_nut_length()
+
+    def _check_nut_length(self, *_):
+        cur = self.nut_length.get().strip()
+        if cur == self._nut_length_validated:
+            return                         # same value already checked
+        self._nut_length_validated = cur   # mark as checked
+        ctx = self._nut_context()
+        if ctx is None:
+            return
+        bld, pitch_mm, fn = ctx['bld'], ctx['pitch_mm'], ctx['fn']
+        hex_val  = ctx['hex_val']
+        length_mm = ctx['length_mm'] if ctx['length_mm'] is not None else bld.hex_h
+        if hex_val is not None:
+            w_hex = 0.2 * hex_val
+            if length_mm < w_hex:
+                messagebox.showerror('Error',
+                    f'Length too short for this diameter.\nMinimum is {w_hex:.2f} mm')
+                return
+        min_thread = 2.5 * pitch_mm + 2 * pitch_mm / fn + 0.1
+        if length_mm < min_thread:
+            messagebox.showerror('Error',
+                f'Length too short for this pitch.\nMinimum is {min_thread:.2f} mm')
+
+    def _check_bolt_h_adj(self, *_):
+        s = self.bolt_h_adj.get().strip()
+        if not s:
+            return
+        try:
+            v = float(s)
+            assert v >= 0
+        except Exception:
+            messagebox.showerror('Error', 'Head height adj must be >= 0.')
+
+    def _check_bolt_hex(self, *_):
+        ctx = self._bolt_context()
+        if ctx is None:
+            return
+        bld, head, hex_val = ctx['bld'], ctx['head'], ctx['hex_val']
+        if hex_val is None:
+            return
+        if head == 'hex':
+            if hex_val < bld.diam:
+                messagebox.showerror('Error',
+                    f'Hex wrench size too small (< diam {bld.diam:.2f} mm).')
+        elif head == 'cap':
+            hex_d = 2 * hex_val / math.sqrt(3)
+            if hex_d > bld.cap_d - 1:
+                messagebox.showerror('Error',
+                    f'Hex key size too large for cap head (cap_d={bld.cap_d:.2f} mm).')
+
+    def _check_nut_hex(self, *_):
+        ctx = self._nut_context()
+        if ctx is None:
+            return
+        bld, pitch_mm, hex_val = ctx['bld'], ctx['pitch_mm'], ctx['hex_val']
+        if hex_val is None:
+            return
+        min_hex = bld.diam + 0.5 + pitch_mm
+        if hex_val < min_hex:
+            messagebox.showerror('Error',
+                f'Hex wrench size too small.\nMinimum is {min_hex:.2f} mm.')
+
     def _bolt_head_changed(self):
         am_metric = self.bolt_units.get() == 'mm'
         try:
@@ -620,11 +970,20 @@ class BoltNutGUI:
         self.bolt_hex_adj.set(f"{default_hex_adj(bld.diam, head):g}")
 
     def _bolt_length_changed(self, *_):
+        self._bolt_length_validated = None   # new value → allow re-check
         filled = bool(self.bolt_length.get().strip())
         self.bolt_btn.config(state='normal' if filled else 'disabled')
         self._update_bolt_outfile()
 
+    def _bolt_outfile_edited(self, *_):
+        if self._bolt_outfile_writing:
+            return
+        # User made this change: lock if non-empty, unlock if cleared
+        self._bolt_outfile_locked = bool(self.bolt_outfile.get())
+
     def _update_bolt_outfile(self, *_):
+        if self._bolt_outfile_locked:
+            return
         am_metric  = self.bolt_units.get() == 'mm'
         units_str  = 'mm' if am_metric else 'in'
         diam_str   = self.bolt_diam.get().strip()
@@ -641,11 +1000,13 @@ class BoltNutGUI:
             pitch_mm   = display_to_mm_pitch(pitch_str, am_metric)
             gen_type   = ('srod' if btype == 'bolt' else 'rod') \
                           if head == 'none' else btype
+            self._bolt_outfile_writing = True
             self.bolt_outfile.set(
                 bolt_fname(am_metric, units_str, head, gen_type,
                            bld, pitch_mm, length_str))
+            self._bolt_outfile_writing = False
         except Exception:
-            pass
+            self._bolt_outfile_writing = False
 
     def _nut_units_changed(self):
         am_metric = self.nut_units.get() == 'mm'
@@ -681,7 +1042,14 @@ class BoltNutGUI:
         self.nut_hex_adj.set('-0.5')
         self._update_nut_outfile()
 
+    def _nut_outfile_edited(self, *_):
+        if self._nut_outfile_writing:
+            return
+        self._nut_outfile_locked = bool(self.nut_outfile.get())
+
     def _update_nut_outfile(self, *_):
+        if self._nut_outfile_locked:
+            return
         am_metric = self.nut_units.get() == 'mm'
         units_str = 'mm' if am_metric else 'in'
         diam_str  = self.nut_diam.get().strip()
@@ -695,10 +1063,12 @@ class BoltNutGUI:
             pitch_mm = display_to_mm_pitch(pitch_str, am_metric)
             len_s = self.nut_length.get().strip()
             length_orig = parse_length(len_s, am_metric) if len_s else None
+            self._nut_outfile_writing = True
             self.nut_outfile.set(
                 nut_fname(am_metric, units_str, bld, pitch_mm, length_orig))
+            self._nut_outfile_writing = False
         except Exception:
-            pass
+            self._nut_outfile_writing = False
 
     # -------------------------------------------------------------- browse
     def _browse(self, outfile_var):
@@ -814,8 +1184,12 @@ class BoltNutGUI:
             messagebox.showerror('Error', 'Head height adj must be >= 0.')
             return
 
-        if bld.diam / 2 < pitch_mm * math.sqrt(3) / 2 + 0.1:
-            messagebox.showerror('Error', 'Error: pitch too coarse for diameter')
+        threshold = pitch_mm * math.sqrt(3) / 2 + 0.1
+        if bld.diam / 2 < threshold:
+            messagebox.showerror('Error',
+                f'Pitch too coarse for diameter.\n'
+                f'diam={bld.diam:.4f} mm, pitch={pitch_mm:.4f} mm\n'
+                f'Need diam/2={bld.diam/2:.4f} >= threshold={threshold:.4f}')
             return
 
         # hex: field holds mm for metric, inch fraction for imperial
@@ -827,6 +1201,15 @@ class BoltNutGUI:
         except Exception:
             messagebox.showerror('Error', f'Invalid hex size: "{hex_str}"')
             return
+        if hex_val is not None:
+            if head == 'hex' and hex_val < bld.diam:
+                messagebox.showerror('Error', 'Error: hex < diam')
+                return
+            elif head == 'cap':
+                hex_d = 2 * hex_val / math.sqrt(3)
+                if hex_d > bld.cap_d - 1:
+                    messagebox.showerror('Error', 'Error: hex too large')
+                    return
 
         # shank_d: field holds mm for metric, decimal inches for imperial
         shank_d_str = self.bolt_shank_d.get().strip()
@@ -878,11 +1261,15 @@ class BoltNutGUI:
         else:
             ll = length_mm - shank_l
             if is_srod:
-                ll /= 2
-            if ll < w:
-                messagebox.showerror('Error',
-                    f'Error: length too short for this pitch.\nMinimum is {2*w+shank_l:.2f}')
-                return
+                if ll < 2 * w:
+                    messagebox.showerror('Error',
+                        f'Error: length too short for this pitch.\nMinimum is {2*w+shank_l:.2f} mm')
+                    return
+            else:
+                if ll < w:
+                    messagebox.showerror('Error',
+                        f'Error: length too short for this pitch.\nMinimum is {w+shank_l:.2f} mm')
+                    return
 
         gen_type = ('srod' if btype == 'bolt' else 'rod') \
                     if head == 'none' else btype
@@ -983,6 +1370,11 @@ class BoltNutGUI:
         except Exception:
             messagebox.showerror('Error', f'Invalid hex wrench size: "{hex_str}"')
             return
+        min_hex = bld.diam + 0.5 + pitch_mm
+        if hex_val < min_hex:
+            messagebox.showerror('Error',
+                f'Error: hex too small\nMinimum is {min_hex:.2f} mm')
+            return
 
         try:
             fn = int(self.nut_fn.get().strip())
@@ -998,8 +1390,12 @@ class BoltNutGUI:
             messagebox.showerror('Error', 'Invalid adjustment value.')
             return
 
-        if bld.diam / 2 < pitch_mm * math.sqrt(3) / 2 + 0.1:
-            messagebox.showerror('Error', 'Error: pitch too coarse for diameter')
+        threshold = pitch_mm * math.sqrt(3) / 2 + 0.1
+        if bld.diam / 2 < threshold:
+            messagebox.showerror('Error',
+                f'Pitch too coarse for diameter.\n'
+                f'diam={bld.diam:.4f} mm, pitch={pitch_mm:.4f} mm\n'
+                f'Need diam/2={bld.diam/2:.4f} >= threshold={threshold:.4f}')
             return
 
         # Minimum nut length check (mirrors nutgen.py).
