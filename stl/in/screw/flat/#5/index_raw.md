@@ -1,5 +1,7 @@
 # #5 Flat Screw
 
+## Direct download
+
 | Length \ Pitch | 40 TPI | 44 TPI |
 |---|---|---|
 | **1/4"** | [#5X40-1/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/screw/flat/#5/in_flat_screw_#5X40-1f4.stl) | [#5X44-1/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/screw/flat/#5/in_flat_screw_#5X44-1f4.stl) |

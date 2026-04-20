@@ -1,5 +1,7 @@
 # 7/16 Hex Bolt
 
+## Direct download
+
 | Length \ Pitch | 14 TPI | 20 TPI | 28 TPI |
 |---|---|---|---|
 | **1"** | [7/16X14-1](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/hex/7f16/in_hex_bolt_7f16X14-1.stl) | [7/16X20-1](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/hex/7f16/in_hex_bolt_7f16X20-1.stl) | [7/16X28-1](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/hex/7f16/in_hex_bolt_7f16X28-1.stl) |

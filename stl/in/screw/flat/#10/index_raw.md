@@ -1,5 +1,7 @@
 # #10 Flat Screw
 
+## Direct download
+
 | Length \ Pitch | 24 TPI | 32 TPI |
 |---|---|---|
 | **1/4"** | [#10X24-1/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/screw/flat/#10/in_flat_screw_#10X24-1f4.stl) | [#10X32-1/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/screw/flat/#10/in_flat_screw_#10X32-1f4.stl) |

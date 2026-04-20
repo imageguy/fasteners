@@ -1,5 +1,7 @@
 # STL Download Index
 
+## Direct download
+
 ## Metric Bolts
 
 | Size | Cap | Flat | Hex | Pan | Rod |

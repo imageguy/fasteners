@@ -1,5 +1,7 @@
 # M10 Threaded Rod
 
+## Direct download
+
 | Length \ Pitch | 0.75 mm | 1.00 mm | 1.25 mm | 1.50 mm |
 |---|---|---|---|---|
 | **35 mm** | [M10X0.75-35](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/bolt/rod/M10/mm_srod_M10X0p75-35.stl) | [M10X1.00-35](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/bolt/rod/M10/mm_srod_M10X1p00-35.stl) | [M10X1.25-35](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/bolt/rod/M10/mm_srod_M10X1p25-35.stl) | [M10X1.50-35](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/bolt/rod/M10/mm_srod_M10X1p50-35.stl) |

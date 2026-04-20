@@ -1,5 +1,7 @@
 # M4 Cap Bolt
 
+## Direct download
+
 | Length \ Pitch | 0.50 mm | 0.70 mm |
 |---|---|---|
 | **15 mm** | [M4X0.50-15](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/bolt/cap/M4/mm_cap_bolt_M4X0p50-15.stl) | [M4X0.70-15](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/bolt/cap/M4/mm_cap_bolt_M4X0p70-15.stl) |

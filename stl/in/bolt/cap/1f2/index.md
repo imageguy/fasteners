@@ -1,5 +1,7 @@
 # 1/2 Cap Bolt
 
+## Preview and download
+
 | Length \ Pitch | 13 TPI | 20 TPI | 28 TPI |
 |---|---|---|---|
 | **1"** | [1/2X13-1](https://github.com/imageguy/fasteners/blob/main/stl/in/bolt/cap/1f2/in_cap_bolt_1f2X13-1.stl) | [1/2X20-1](https://github.com/imageguy/fasteners/blob/main/stl/in/bolt/cap/1f2/in_cap_bolt_1f2X20-1.stl) | [1/2X28-1](https://github.com/imageguy/fasteners/blob/main/stl/in/bolt/cap/1f2/in_cap_bolt_1f2X28-1.stl) |

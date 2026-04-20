@@ -1,5 +1,7 @@
 # M8 Hex Bolt
 
+## Direct download
+
 | Length \ Pitch | 0.75 mm | 1.00 mm | 1.25 mm |
 |---|---|---|---|
 | **20 mm** | [M8X0.75-20](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/bolt/hex/M8/mm_hex_bolt_M8X0p75-20.stl) | [M8X1.00-20](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/bolt/hex/M8/mm_hex_bolt_M8X1p00-20.stl) | [M8X1.25-20](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/bolt/hex/M8/mm_hex_bolt_M8X1p25-20.stl) |

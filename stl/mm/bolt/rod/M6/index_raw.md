@@ -1,5 +1,7 @@
 # M6 Threaded Rod
 
+## Direct download
+
 | Length \ Pitch | 0.75 mm | 1.00 mm |
 |---|---|---|
 | **25 mm** | [M6X0.75-25](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/bolt/rod/M6/mm_srod_M6X0p75-25.stl) | [M6X1.00-25](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/bolt/rod/M6/mm_srod_M6X1p00-25.stl) |

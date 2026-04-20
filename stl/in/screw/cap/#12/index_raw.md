@@ -1,5 +1,7 @@
 # #12 Cap Screw
 
+## Direct download
+
 | Length \ Pitch | 24 TPI | 28 TPI | 32 TPI |
 |---|---|---|---|
 | **1/4"** | [#12X24-1/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/screw/cap/#12/in_cap_screw_#12X24-1f4.stl) | [#12X28-1/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/screw/cap/#12/in_cap_screw_#12X28-1f4.stl) | [#12X32-1/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/screw/cap/#12/in_cap_screw_#12X32-1f4.stl) |

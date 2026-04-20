@@ -1,5 +1,7 @@
 # 1/2 Pan Screw
 
+## Direct download
+
 | Length \ Pitch | 13 TPI | 20 TPI | 28 TPI |
 |---|---|---|---|
 | **1/2"** | [1/2X13-1/2](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/screw/pan/1f2/in_pan_screw_1f2X13-1f2.stl) | [1/2X20-1/2](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/screw/pan/1f2/in_pan_screw_1f2X20-1f2.stl) | [1/2X28-1/2](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/screw/pan/1f2/in_pan_screw_1f2X28-1f2.stl) |

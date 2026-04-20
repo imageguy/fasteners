@@ -1,5 +1,7 @@
 # 5/16 Hex Bolt
 
+## Direct download
+
 | Length \ Pitch | 18 TPI | 24 TPI | 32 TPI |
 |---|---|---|---|
 | **3/4"** | [5/16X18-3/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/hex/5f16/in_hex_bolt_5f16X18-3f4.stl) | [5/16X24-3/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/hex/5f16/in_hex_bolt_5f16X24-3f4.stl) | [5/16X32-3/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/hex/5f16/in_hex_bolt_5f16X32-3f4.stl) |

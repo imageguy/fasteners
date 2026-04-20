@@ -1,5 +1,7 @@
 # #12 Hex Bolt
 
+## Direct download
+
 | Length \ Pitch | 24 TPI | 28 TPI | 32 TPI |
 |---|---|---|---|
 | **3/4"** | [#12X24-3/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/hex/#12/in_hex_bolt_#12X24-3f4.stl) | [#12X28-3/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/hex/#12/in_hex_bolt_#12X28-3f4.stl) | [#12X32-3/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/hex/#12/in_hex_bolt_#12X32-3f4.stl) |

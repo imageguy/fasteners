@@ -1,5 +1,7 @@
 # #12 Hex Screw
 
+## Preview and download
+
 | Length \ Pitch | 24 TPI | 28 TPI | 32 TPI |
 |---|---|---|---|
 | **1/4"** | [#12X24-1/4](https://github.com/imageguy/fasteners/blob/main/stl/in/screw/hex/#12/in_hex_screw_#12X24-1f4.stl) | [#12X28-1/4](https://github.com/imageguy/fasteners/blob/main/stl/in/screw/hex/#12/in_hex_screw_#12X28-1f4.stl) | [#12X32-1/4](https://github.com/imageguy/fasteners/blob/main/stl/in/screw/hex/#12/in_hex_screw_#12X32-1f4.stl) |

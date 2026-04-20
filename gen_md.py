@@ -217,7 +217,8 @@ def gen_dir_index(dirpath, base_url='', use_raw=False):
         rows.append(row)
 
     index_name = 'index_raw.md' if use_raw else 'index.md'
-    lines = [f'# {title}', ''] + _md_table(headers, rows) + ['']
+    subtitle = '## Direct download' if use_raw else '## Preview and download'
+    lines = [f'# {title}', '', subtitle, ''] + _md_table(headers, rows) + ['']
     out = dirpath / index_name
     out.write_text('\n'.join(lines), encoding='utf-8')
     print(f'  {out.relative_to(BLD_STL.parent)}')
@@ -242,7 +243,8 @@ def gen_master_index(base_url='', use_raw=False):
     def page_url(rel):
         return f"{page_base}/{rel}" if page_base else rel
 
-    parts = ['# STL Download Index', '']
+    subtitle = '## Direct download' if use_raw else '## Preview and download'
+    parts = ['# STL Download Index', '', subtitle, '']
 
     for unit in ['mm', 'in']:
         am_metric  = unit == 'mm'

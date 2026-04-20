@@ -1,5 +1,7 @@
 # #6 Cap Bolt
 
+## Preview and download
+
 | Length \ Pitch | 32 TPI | 40 TPI |
 |---|---|---|
 | **3/4"** | [#6X32-3/4](https://github.com/imageguy/fasteners/blob/main/stl/in/bolt/cap/#6/in_cap_bolt_#6X32-3f4.stl) | [#6X40-3/4](https://github.com/imageguy/fasteners/blob/main/stl/in/bolt/cap/#6/in_cap_bolt_#6X40-3f4.stl) |

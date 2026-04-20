@@ -1,5 +1,7 @@
 # 5/16 Threaded Rod
 
+## Direct download
+
 | Length \ Pitch | 18 TPI | 24 TPI | 32 TPI |
 |---|---|---|---|
 | **1/2"** | [5/16X18-1/2](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/screw/rod/5f16/in_rod_5f16X18-1f2.stl) | [5/16X24-1/2](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/screw/rod/5f16/in_rod_5f16X24-1f2.stl) | [5/16X32-1/2](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/screw/rod/5f16/in_rod_5f16X32-1f2.stl) |

@@ -1,5 +1,7 @@
 # 1/2 Threaded Rod
 
+## Direct download
+
 | Length \ Pitch | 13 TPI | 20 TPI | 28 TPI |
 |---|---|---|---|
 | **1 1/2"** | [1/2X13-1 1/2](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/rod/1f2/in_srod_1f2X13-1_1f2.stl) | [1/2X20-1 1/2](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/rod/1f2/in_srod_1f2X20-1_1f2.stl) | [1/2X28-1 1/2](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/rod/1f2/in_srod_1f2X28-1_1f2.stl) |

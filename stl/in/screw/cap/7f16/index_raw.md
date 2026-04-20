@@ -1,5 +1,7 @@
 # 7/16 Cap Screw
 
+## Direct download
+
 | Length \ Pitch | 14 TPI | 20 TPI | 28 TPI |
 |---|---|---|---|
 | **1/2"** | [7/16X14-1/2](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/screw/cap/7f16/in_cap_screw_7f16X14-1f2.stl) | [7/16X20-1/2](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/screw/cap/7f16/in_cap_screw_7f16X20-1f2.stl) | [7/16X28-1/2](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/screw/cap/7f16/in_cap_screw_7f16X28-1f2.stl) |

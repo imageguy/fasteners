@@ -1,5 +1,7 @@
 # M12 Flat Screw
 
+## Direct download
+
 | Length \ Pitch | 1.00 mm | 1.25 mm | 1.50 mm | 1.75 mm |
 |---|---|---|---|---|
 | **15 mm** | [M12X1.00-15](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/screw/flat/M12/mm_flat_screw_M12X1p00-15.stl) | [M12X1.25-15](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/screw/flat/M12/mm_flat_screw_M12X1p25-15.stl) | [M12X1.50-15](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/screw/flat/M12/mm_flat_screw_M12X1p50-15.stl) | [M12X1.75-15](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/screw/flat/M12/mm_flat_screw_M12X1p75-15.stl) |

@@ -1,5 +1,7 @@
 # M6 Pan Screw
 
+## Direct download
+
 | Length \ Pitch | 0.75 mm | 1.00 mm |
 |---|---|---|
 | **10 mm** | [M6X0.75-10](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/screw/pan/M6/mm_pan_screw_M6X0p75-10.stl) | [M6X1.00-10](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/screw/pan/M6/mm_pan_screw_M6X1p00-10.stl) |

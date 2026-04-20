@@ -1,5 +1,7 @@
 # 3/8 Threaded Rod
 
+## Direct download
+
 | Length \ Pitch | 16 TPI | 24 TPI | 32 TPI |
 |---|---|---|---|
 | **1 1/4"** | [3/8X16-1 1/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/rod/3f8/in_srod_3f8X16-1_1f4.stl) | [3/8X24-1 1/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/rod/3f8/in_srod_3f8X24-1_1f4.stl) | [3/8X32-1 1/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/rod/3f8/in_srod_3f8X32-1_1f4.stl) |

@@ -1,5 +1,7 @@
 # #10 Cap Bolt
 
+## Direct download
+
 | Length \ Pitch | 24 TPI | 32 TPI |
 |---|---|---|
 | **3/4"** | [#10X24-3/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/cap/#10/in_cap_bolt_#10X24-3f4.stl) | [#10X32-3/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/cap/#10/in_cap_bolt_#10X32-3f4.stl) |

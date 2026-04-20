@@ -1,5 +1,7 @@
 # #10 Threaded Rod
 
+## Direct download
+
 | Length \ Pitch | 24 TPI | 32 TPI |
 |---|---|---|
 | **1"** | [#10X24-1](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/rod/#10/in_srod_#10X24-1.stl) | [#10X32-1](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/rod/#10/in_srod_#10X32-1.stl) |

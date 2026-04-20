@@ -1,5 +1,7 @@
 # 1/4 Cap Bolt
 
+## Direct download
+
 | Length \ Pitch | 20 TPI | 28 TPI | 32 TPI |
 |---|---|---|---|
 | **3/4"** | [1/4X20-3/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/cap/1f4/in_cap_bolt_1f4X20-3f4.stl) | [1/4X28-3/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/cap/1f4/in_cap_bolt_1f4X28-3f4.stl) | [1/4X32-3/4](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/bolt/cap/1f4/in_cap_bolt_1f4X32-3f4.stl) |

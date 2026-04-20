@@ -1,5 +1,7 @@
 # M10 Flat Bolt
 
+## Direct download
+
 | Length \ Pitch | 0.75 mm | 1.00 mm | 1.25 mm | 1.50 mm |
 |---|---|---|---|---|
 | **20 mm** | [M10X0.75-20](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/bolt/flat/M10/mm_flat_bolt_M10X0p75-20.stl) | [M10X1.00-20](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/bolt/flat/M10/mm_flat_bolt_M10X1p00-20.stl) | [M10X1.25-20](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/bolt/flat/M10/mm_flat_bolt_M10X1p25-20.stl) | [M10X1.50-20](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/bolt/flat/M10/mm_flat_bolt_M10X1p50-20.stl) |

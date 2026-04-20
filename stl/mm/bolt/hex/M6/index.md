@@ -1,5 +1,7 @@
 # M6 Hex Bolt
 
+## Preview and download
+
 | Length \ Pitch | 0.75 mm | 1.00 mm |
 |---|---|---|
 | **15 mm** | [M6X0.75-15](https://github.com/imageguy/fasteners/blob/main/stl/mm/bolt/hex/M6/mm_hex_bolt_M6X0p75-15.stl) | [M6X1.00-15](https://github.com/imageguy/fasteners/blob/main/stl/mm/bolt/hex/M6/mm_hex_bolt_M6X1p00-15.stl) |

@@ -1,5 +1,7 @@
 # M4 Pan Screw
 
+## Direct download
+
 | Length \ Pitch | 0.50 mm | 0.70 mm |
 |---|---|---|
 | **5 mm** | [M4X0.50-5](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/screw/pan/M4/mm_pan_screw_M4X0p50-5.stl) | [M4X0.70-5](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/screw/pan/M4/mm_pan_screw_M4X0p70-5.stl) |

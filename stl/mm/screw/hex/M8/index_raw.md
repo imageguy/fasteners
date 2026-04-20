@@ -1,5 +1,7 @@
 # M8 Hex Screw
 
+## Direct download
+
 | Length \ Pitch | 0.75 mm | 1.00 mm | 1.25 mm |
 |---|---|---|---|
 | **10 mm** | [M8X0.75-10](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/screw/hex/M8/mm_hex_screw_M8X0p75-10.stl) | [M8X1.00-10](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/screw/hex/M8/mm_hex_screw_M8X1p00-10.stl) | [M8X1.25-10](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/screw/hex/M8/mm_hex_screw_M8X1p25-10.stl) |

@@ -1,5 +1,7 @@
 # 3/8 Flat Screw
 
+## Direct download
+
 | Length \ Pitch | 16 TPI | 24 TPI | 32 TPI |
 |---|---|---|---|
 | **1/2"** | [3/8X16-1/2](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/screw/flat/3f8/in_flat_screw_3f8X16-1f2.stl) | [3/8X24-1/2](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/screw/flat/3f8/in_flat_screw_3f8X24-1f2.stl) | [3/8X32-1/2](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/in/screw/flat/3f8/in_flat_screw_3f8X32-1f2.stl) |

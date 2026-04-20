@@ -1,5 +1,7 @@
 # M12 Cap Bolt
 
+## Direct download
+
 | Length \ Pitch | 1.00 mm | 1.25 mm | 1.50 mm | 1.75 mm |
 |---|---|---|---|---|
 | **20 mm** | [M12X1.00-20](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/bolt/cap/M12/mm_cap_bolt_M12X1p00-20.stl) | [M12X1.25-20](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/bolt/cap/M12/mm_cap_bolt_M12X1p25-20.stl) | [M12X1.50-20](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/bolt/cap/M12/mm_cap_bolt_M12X1p50-20.stl) | [M12X1.75-20](https://raw.githubusercontent.com/imageguy/fasteners/main/stl/mm/bolt/cap/M12/mm_cap_bolt_M12X1p75-20.stl) |
